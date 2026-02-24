@@ -1,69 +1,969 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Landing Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>A SIP e o Governo dos EUA: Uma Bibliografia Crítica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #D2B48C;
+            --accent: #CD853F;
+            --neutral: #F5F5DC;
+            --base: #FEFEFE;
+            --text: #2C1810;
+            --text-light: #6B5B73;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--base) 0%, var(--neutral) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+        .serif-display { font-family: 'Crimson Text', serif; }
+
+        .hero-gradient {
+            background: linear-gradient(135deg,
+                rgba(139, 69, 19, 0.9) 0%,
+                rgba(210, 180, 140, 0.8) 50%,
+                rgba(205, 133, 63, 0.7) 100%);
+        }
+
+        /* Menu móvel - escondido por padrão */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            padding: 2rem 1.5rem;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            left: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .menu-overlay.open {
+            display: block;
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        .main-content {
+            padding: 1rem 1rem 2rem 1rem;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Ajustes para mobile */
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: none;
+            }
+            
+            .menu-overlay {
+                display: none !important;
+            }
+            
+            .main-content {
+                padding: 2rem;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+        }
+
+        .citation-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted var(--primary);
+            transition: all 0.2s ease;
+        }
+
+        .citation-link:hover {
+            background: rgba(139, 69, 19, 0.1);
+            border-bottom-style: solid;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), transparent);
+            margin: 2.5rem 0;
+        }
+
+        .timeline-item {
+            border-left: 3px solid var(--secondary);
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 13px;
+            height: 13px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .insight-highlight {
+            background: linear-gradient(135deg, rgba(205, 133, 63, 0.1), rgba(210, 180, 140, 0.1));
+            border-left: 4px solid var(--accent);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        /* Ajustes para grid em mobile */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            height: auto;
+        }
+
+        .bento-main {
+            grid-row: auto;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(210, 180, 140, 0.1));
+            border: 1px solid rgba(139, 69, 19, 0.2);
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .bento-grid {
+                grid-template-columns: 2fr 1fr;
+                height: 60vh;
+            }
+            
+            .bento-main {
+                grid-row: 1 / 3;
+            }
+        }
+
+        /* Ajustes de tipografia para mobile */
+        h1 {
+            font-size: 2rem !important;
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 1.8rem !important;
+        }
+
+        h3 {
+            font-size: 1.4rem !important;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3rem !important;
+            }
+            
+            h2 {
+                font-size: 2.25rem !important;
+            }
+            
+            h3 {
+                font-size: 1.875rem !important;
+            }
+        }
+
+        /* Ajustes para imagens */
+        img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        /* Melhorias de touch para links */
+        a, button {
+            touch-action: manipulation;
+        }
+
+        /* Ajustes para grids em mobile */
+        .grid {
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .grid.md\:grid-cols-2,
+            .grid.md\:grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .text-3xl {
+                font-size: 1.875rem !important;
+            }
+            
+            .text-2xl {
+                font-size: 1.5rem !important;
+            }
+            
+            .p-8 {
+                padding: 1.5rem !important;
+            }
+        }
+
+        /* Espaçamento melhorado para mobile */
+        .mb-16 {
+            margin-bottom: 3rem !important;
+        }
+
+        /* Ajustes para cards */
+        .bg-white, .bg-gradient-to-r {
+            padding: 1.2rem !important;
+        }
+
+        /* Melhorias na tabela de conteúdos móvel */
+        .mobile-menu ul {
+            margin-top: 2rem;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 0.75rem;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary);
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Brand</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+    <!-- Botão do menu hambúrguer (visível apenas em mobile) -->
+    <button class="menu-toggle md:hidden" id="menuToggle" aria-label="Abrir menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Overlay para fechar o menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <header class="jumbotron text-center">
-        <h1 class="display-4">Welcome to Our Landing Page</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </header>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h2>Feature 1</h2>
-                <p>Description of feature 1.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Feature 2</h2>
-                <p>Description of feature 2.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Feature 3</h2>
-                <p>Description of feature 3.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-            </div>
-        </div>
+        <h3 class="serif-display text-lg font-semibold text-gray-800 mb-6">Conteúdo</h3>
+        <ul class="space-y-2">
+            <li><a href="#sumario-executivo" class="citation-link">Sumário Executivo</a></li>
+            <li><a href="#historias-fundacionais" class="citation-link">Histórias Fundacionais</a></li>
+            <li><a href="#envolvimento-cia" class="citation-link">Relações com a CIA (1950-1970)</a></li>
+            <li><a href="#estudos-de-caso" class="citation-link">Estudos de Caso: Chile & Cone Sul</a></li>
+            <li><a href="#transicao-ned" class="citation-link">Transição para o Apoio da NED</a></li>
+            <li><a href="#financiamento-contemporaneo" class="citation-link">Financiamento Contemporâneo</a></li>
+            <li><a href="#defesa-imprensa" class="citation-link">Defesa da Liberdade de Imprensa</a></li>
+            <li><a href="#lobby-governo" class="citation-link">Lobby e Engajamento Governamental</a></li>
+            <li><a href="#perspectivas-criticas" class="citation-link">Perspectivas Críticas</a></li>
+            <li><a href="#fontes-arquivo" class="citation-link">Coleções de Fontes Primárias</a></li>
+        </ul>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">Place sticky footer content here.</span>
-        </div>
-    </footer>
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Seção Hero com Layout Bento (adaptado para mobile) -->
+        <section class="mb-12">
+            <div class="bento-grid">
+                <div class="bento-main rounded-lg">
+                    <h1 class="serif-display font-bold text-gray-900 leading-tight mb-4">
+                        <em class="text-amber-800">A Sociedade Interamericana de Imprensa</em>
+                        <br>
+                        e as Relações com o Governo dos EUA
+                    </h1>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Uma Bibliografia Crítica de Oito Décadas de Dependência Institucional
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-sm text-gray-600">
+                        <span class="bg-amber-100 px-3 py-1 rounded-full">Origens na Guerra Fria</span>
+                        <span class="bg-amber-100 px-3 py-1 rounded-full">Financiamento de Inteligência</span>
+                        <span class="bg-amber-100 px-3 py-1 rounded-full">Promoção da Democracia</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-5 border border-gray-200">
+                    <h3 class="serif-display text-lg font-semibold mb-3">Principais Conclusões</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-dollar-sign text-amber-600 mt-1 mr-2 flex-shrink-0"></i><span>Financiamento direto da CIA: $10.000/ano (1950-1953)</span></li>
+                        <li class="flex items-start"><i class="fas fa-network-wired text-amber-600 mt-1 mr-2 flex-shrink-0"></i><span>Mais de 400 jornalistas com ligações à CIA documentados</span></li>
+                        <li class="flex items-start"><i class="fas fa-handshake text-amber-600 mt-1 mr-2 flex-shrink-0"></i><span>Rede de jornalistas exilados financiada pela NED (RELPEX)</span></li>
+                        <li class="flex items-start"><i class="fas fa-chart-line text-amber-600 mt-1 mr-2 flex-shrink-0"></i><span>Viés sistemático contra governos de esquerda</span></li>
+                    </ul>
+                </div>
+
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-5 border border-orange-200">
+                    <img src="https://kimi-web-img.moonshot.cn/img/placeholder-0620/%E5%9B%BE%E7%89%872.png" alt="Protesto histórico por liberdade de imprensa na América Latina" class="w-full h-40 object-cover rounded mb-3">
+                    <p class="text-xs text-gray-600 italic">Padrão documentado de defesa seletiva da liberdade de imprensa</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sumário Executivo -->
+        <section id="sumario-executivo" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Sumário Executivo</h2>
+
+            <div class="insight-highlight">
+                <h3 class="serif-display text-xl font-semibold mb-4">Argumento Central</h3>
+                <p class="text-base leading-relaxed">
+                    A <strong>Sociedade Interamericana de Imprensa (SIP)</strong> mantém relações extensas e bem documentadas com o governo dos Estados Unidos desde sua fundação em 1942, evoluindo do financiamento direto da CIA e coordenação operacional durante a Guerra Fria para o apoio contemporâneo da National Endowment for Democracy (NED) e engajamento com o Departamento de Estado. Essas relações moldaram a defesa da liberdade de imprensa pela SIP, gerando críticas persistentes de seletividade ideológica em favor dos objetivos da política externa dos EUA.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div>
+                    <h3 class="serif-display text-lg font-semibold mb-4">Evidências Documentadas</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><i class="fas fa-file-alt text-amber-600 mt-1 mr-3 flex-shrink-0"></i><span>Registros da CIA desclassificados confirmando financiamento anual de $10.000 (1950-1953)</span></li>
+                        <li class="flex items-start"><i class="fas fa-gavel text-amber-600 mt-1 mr-3 flex-shrink-0"></i><span>Investigação da Comissão da Igreja expondo operações sistemáticas na mídia</span></li>
+                        <li class="flex items-start"><i class="fas fa-newspaper text-amber-600 mt-1 mr-3 flex-shrink-0"></i><span>Exposição de Bernstein em 1977 documentando mais de 400 jornalistas ligados à CIA</span></li>
+                        <li class="flex items-start"><i class="fas fa-handshake text-amber-600 mt-1 mr-3 flex-shrink-0"></i><span>Documentação contemporânea de subsídios da NED e reuniões do Departamento de Estado</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="serif-display text-lg font-semibold mb-4">Padrão de Influência</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><i class="fas fa-balance-scale text-amber-600 mt-1 mr-3 flex-shrink-0"></i><span>Crítica desproporcional a governos de esquerda</span></li>
+                        <li class="flex items-start"><i class="fas fa-shield-alt text-amber-600 mt-1 mr-3 flex-shrink-0"></i><span>Resposta moderada a violações de ditaduras de direita</span></li>
+                        <li class="flex items-start"><i class="fas fa-users text-amber-600 mt-1 mr-3 flex-shrink-0"></i><span>Exclusão sistemática de vozes da mídia progressista</span></li>
+                        <li class="flex items-start"><i class="fas fa-globe-americas text-amber-600 mt-1 mr-3 flex-shrink-0"></i><span>Alinhamento com objetivos geopolíticos dos EUA</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Histórias Fundacionais -->
+        <section id="historias-fundacionais" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Histórias Fundacionais e Origens Institucionais</h2>
+
+            <div class="timeline-item">
+                <h3 class="serif-display text-xl font-semibold mb-4">Congressos Pan-Americanos de Jornalistas (1926-1941)</h3>
+                <p class="mb-4">
+                    A genealogia institucional remonta ao <strong>primeiro Congresso Pan-Americano de Jornalistas em Washington, D.C., em 1926</strong>, onde 130 delegados adotaram uma resolução estabelecendo a estrutura para uma organização interamericana permanente de imprensa <a href="#ref-67" class="citation-link">[67]</a>. Isso ocorreu no contexto mais amplo da diplomacia cultural dos EUA com a América Latina, incluindo as operações extensivas do <strong>Escritório do Coordenador de Assuntos Interamericanos (OIAA)</strong> estabelecido em 1940 sob a direção de Nelson Rockefeller <a href="#ref-230" class="citation-link">[230]</a>.
+                </p>
+                <div class="bg-amber-50 p-4 rounded-lg border-l-4 border-amber-400">
+                    <p class="text-sm italic">
+                        O Departamento de Imprensa e Publicações do OIAA gerou registros substanciais documentando operações de informação em tempo de guerra que alcançavam <strong>40 a 60 milhões de latino-americanos mensalmente</strong> através de rádio, cinema e serviços de imprensa <a href="#ref-228" class="citation-link">[228]</a>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <h3 class="serif-display text-xl font-semibold mb-4">Conferência de Havana e Estabelecimento Oficial (1942)</h3>
+                <p class="mb-4">
+                    A Sociedade Interamericana de Imprensa alcançou <strong>existência institucional formal em sua conferência de fundação em Havana, Cuba, em 1942</strong>, emergindo como uma organização sem fins lucrativos dedicada a "defender a liberdade de expressão e proteger os interesses da imprensa nas Américas" <a href="#ref-67" class="citation-link">[67]</a>. O timing — meses após a entrada dos EUA na Segunda Guerra Mundial — colocou as origens da SIP dentro das estruturas de aliança de guerra.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3 class="serif-display text-xl font-semibold mb-4">A Resolução de "Independência" de 1950 e Conexões com a CIA</h3>
+                <p class="mb-4">
+                    Uma transformação crítica ocorreu em <strong>1950, quando os membros da SIP adotaram uma resolução afirmando independência do controle governamental e de interesses especiais</strong> <a href="#ref-67" class="citation-link">[67]</a>. No entanto, fontes acadêmicas peruanas revelam que o <strong>Departamento de Estado dos EUA já havia decidido antes da reunião de Quito em 1949 "reformar" a SIP e convertê-la em um "instrumento dócil de sua política"</strong> <a href="#ref-234" class="citation-link">[234]</a>.
+                </p>
+                <div class="insight-highlight">
+                    <h4 class="font-semibold mb-3">A Revelação do Financiamento da CIA</h4>
+                    <p class="mb-3">
+                        A <strong>confirmação oficial mais explícita da relação financeira CIA-SIP</strong> aparece no <strong>relatório abrangente da Comissão Seleto do Senado dos EUA sobre ação encoberta no Chile</strong>: <strong>"Em setembro de 1950, após negociações com a SIP, a CIA concordou em contribuir com $10.000 por ano para a SIP durante três anos"</strong> <a href="#ref-289" class="citation-link">[289]</a>.
+                    </p>
+                    <p class="text-sm text-gray-700">
+                        <strong>O apoio da CIA foi dado em troca do qual o Presidente da SIP concordou em disseminar materiais fornecidos pela CIA para os jornais membros diariamente</strong> <a href="#ref-289" class="citation-link">[289]</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Envolvimento da CIA -->
+        <section id="envolvimento-cia" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Relações com a CIA e Coordenação Operacional</h2>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">James Copley e o Copley News Service</h3>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/placeholder-0620/%E5%9B%BE%E7%89%875.png" alt="James Copley, editor de jornal com conexões com a CIA" class="w-full h-48 object-cover rounded mb-4">
+                <p class="text-sm text-gray-600 italic mb-4">James S. Copley, cujos laços com a CIA datam de antes de 1953, foi presidente da SIP em 1970.</p>
+                <p class="mb-4">
+                    <strong>James S. Copley, fundador do Copley News Service, é o indivíduo mais significativo ligando a SIP às operações da CIA</strong>. Copley, cujos <strong>laços com a CIA datam de antes de 1953</strong>, serviu como <strong>presidente da SIP em 1970</strong> <a href="#ref-237" class="citation-link">[237]</a>. Seu serviço de notícias foi caracterizado em reportagens investigativas como <strong>"uma das relações 'mais produtivas' da Agência"</strong> <a href="#ref-238" class="citation-link">[238]</a>.
+                </p>
+                <div class="bg-red-50 p-4 rounded border-l-4 border-red-400">
+                    <p class="text-sm">
+                        <strong>Investigação da Penthouse em 1977</strong> revelou que <strong>pelo menos vinte e três funcionários do Copley News Service realizavam trabalho para a CIA</strong> <a href="#ref-238" class="citation-link">[238]</a>. Copley <strong>ofereceu pessoalmente seu serviço de notícias ao então presidente Eisenhower</strong> para atuar como <strong>"os olhos e ouvidos" contra "a ameaça comunista na América Latina e Central" para "nossos serviços de inteligência"</strong> <a href="#ref-238" class="citation-link">[238]</a>.
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">A Investigação Histórica de Carl Bernstein (1977)</h3>
+            <p class="mb-4">
+                O artigo de <strong>Carl Bernstein na Rolling Stone de outubro de 1977, "A CIA e a Mídia"</strong>, é um relato investigativo histórico das relações da agência com organizações de notícias <a href="#ref-3" class="citation-link">[3]</a>. A reportagem de Bernstein documentou que <strong>"mais de 400 jornalistas" mantinham relações formais com a CIA</strong> durante as três décadas anteriores.
+            </p>
+
+            <div class="insight-highlight">
+                <h4 class="font-semibold mb-3">A Investigação da Comissão da Igreja</h4>
+                <p class="mb-3">
+                    A <strong>Comissão Seleto do Senado dos EUA para Estudar Operações Governamentais com Respeito a Atividades de Inteligência</strong>, comumente conhecida como <strong>Comissão da Igreja</strong>, produziu a <strong>investigação congressional definitiva da ação encoberta da CIA no Chile cobrindo 1963-1973</strong> <a href="#ref-289" class="citation-link">[289]</a>.
+                </p>
+                <p class="text-sm text-gray-700">
+                    A avaliação crítica da comissão — <strong>observando inflação de ameaças, escalada operacional e contribuição para a preparação do golpe militar</strong> — fornece uma estrutura essencial para avaliar o papel da SIP na Guerra Fria.
+                </p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Estudos de Caso -->
+        <section id="estudos-de-caso" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Estudos de Caso: Operações no Chile e Cone Sul</h2>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Chile 1963–1973: O Caso Mais Documentado</h3>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-semibold mb-4">Investimentos da CIA na Mídia Chilena</h4>
+                    <div class="space-y-3">
+                        <div class="bg-white p-4 rounded border border-gray-200">
+                            <div class="font-semibold text-amber-800">$1.5 milhão</div>
+                            <div class="text-sm">El Mercurio - "Canal mais importante para propaganda anti-Allende" <a href="#ref-289" class="citation-link">[289]</a></div>
+                        </div>
+                        <div class="bg-white p-4 rounded border border-gray-200">
+                            <div class="font-semibold text-amber-800">$700.000</div>
+                            <div class="text-sm">Financiamento adicional (setembro de 1971) para mídia de oposição expandida <a href="#ref-289" class="citation-link">[289]</a></div>
+                        </div>
+                        <div class="bg-white p-4 rounded border border-gray-200">
+                            <div class="font-semibold text-amber-800">Grandes alocações</div>
+                            <div class="text-sm">"Sustentar mídia de oposição" e "manter campanha de propaganda contundente" (1971-1972) <a href="#ref-289" class="citation-link">[289]</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Rede de Pessoal SIP-CIA</h4>
+                    <div class="bg-white rounded-lg border border-gray-200 p-4">
+                        <div class="space-y-3">
+                            <div class="border-b border-gray-200 pb-2">
+                                <div class="font-semibold">Agustín Edwards</div>
+                                <div class="text-sm text-gray-600">Proprietário, El Mercurio - Agente da CIA desde 1958; Presidente da SIP (1969) <a href="#ref-240" class="citation-link">[240]</a></div>
+                            </div>
+                            <div class="border-b border-gray-200 pb-2">
+                                <div class="font-semibold">Hernán Cubillos</div>
+                                <div class="text-sm text-gray-600">Executivo - "Um dos principais agentes da CIA"; Ministro das Relações Exteriores pós-golpe <a href="#ref-237" class="citation-link">[237]</a></div>
+                            </div>
+                            <div class="border-b border-gray-200 pb-2">
+                                <div class="font-semibold">René Silva Espejo</div>
+                                <div class="text-sm text-gray-600">Executivo - Elevado ao conselho da SIP (1972) <a href="#ref-289" class="citation-link">[289]</a></div>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Fernando Leniz</div>
+                                <div class="text-sm text-gray-600">Executivo - Elevado ao conselho da SIP (1972) <a href="#ref-289" class="citation-link">[289]</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-highlight">
+                <h4 class="font-semibold mb-3">Coordenação da Conferência de Santiago de 1972</h4>
+                <p class="mb-3">
+                    A Comissão da Igreja observou que <strong>"entre os livros e panfletos produzidos pela principal organização de pesquisa da oposição estava um que apareceu em outubro de 1972 por ocasião da reunião da Sociedade Interamericana de Imprensa (SIP) em Santiago"</strong> — sugerindo coordenação entre a estratégia da mídia de oposição e o calendário institucional da SIP <a href="#ref-289" class="citation-link">[289]</a>.
+                </p>
+                <p class="text-sm text-gray-700">
+                    A comissão observou ainda que <strong>"como no período de 1970, a SIP listou o Chile como um país onde a liberdade de imprensa estava ameaçada"</strong> <a href="#ref-289" class="citation-link">[289]</a>.
+                </p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Transição NED -->
+        <section id="transicao-ned" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Transição da CIA para a National Endowment for Democracy</h2>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-6">
+                <h3 class="serif-display text-xl font-semibold mb-4">Transformação Estrutural na Promoção da Democracia pelos EUA</h3>
+                <p class="mb-4">
+                    A análise crítica documenta que <strong>"desde meados da década de 1990, a NED e seus grupos afiliados desempenham o papel de coordenação da mídia desempenhado pela CIA no passado — embora algumas das pessoas envolvidas sejam as mesmas"</strong> <a href="#ref-161" class="citation-link">[161]</a>. Esta caracterização identifica <strong>continuidades estruturais sob a transformação institucional</strong>.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-red-50 p-4 rounded border border-red-200">
+                        <h4 class="font-semibold text-red-800 mb-2">Era da CIA (1950-1970)</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• Orçamentos de inteligência encobertos</li>
+                            <li>• Classificação e negabilidade plausível</li>
+                            <li>• Fundações privadas como canais</li>
+                            <li>• Legitimação anticomunista</li>
+                            <li>• Oficiais de inteligência disfarçados</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded border border-blue-200">
+                        <h4 class="font-semibold text-blue-800 mb-2">Era da NED (1990s-Presente)</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• Dotações do Congresso</li>
+                            <li>• Pedidos de subsídio e relatórios</li>
+                            <li>• Organização "privada" quase-governamental</li>
+                            <li>• Estruturas de promoção da democracia</li>
+                            <li>• Trajetórias de carreira entre agências</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-highlight">
+                <h4 class="font-semibold mb-3">Alegações de Continuidade de Pessoal</h4>
+                <p class="mb-3">
+                    A <strong>alegação de continuidade de pessoal</strong> — "algumas das pessoas envolvidas são as mesmas" — se verificada, indica <strong>preservação substancial da memória institucional através da transição de mecanismos encobertos para abertos</strong> <a href="#ref-161" class="citation-link">[161]</a>.
+                </p>
+                <p class="text-sm text-gray-700">
+                    Esta continuidade pode operar em múltiplos níveis: <strong>trajetórias de carreira individuais movendo-se entre organizações de inteligência e promoção da democracia</strong>; <strong>relações de rede mantidas através de fronteiras institucionais</strong>; e <strong>estruturas conceituais compartilhadas sobre relações apropriadas entre mídia e estado</strong>.
+                </p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Financiamento Contemporâneo -->
+        <section id="financiamento-contemporaneo" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Financiamento Contemporâneo e Relações Governamentais</h2>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Rede de Jornalismo Latino-Americano no Exílio (RELPEX)</h3>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/placeholder-0620/%E5%9B%BE%E7%89%8718.png" alt="Jornalistas latino-americanos exilados colaborando em um workshop profissional" class="w-full h-48 object-cover rounded mb-4">
+                <p class="text-sm text-gray-600 italic mb-4">Colaboração documentada entre NED e SIP apoiando jornalistas exilados</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-amber-600">$45.000</div>
+                        <div class="text-xs text-gray-600">Capital inicial da NED (primeiro ano) <a href="#ref-159" class="citation-link">[159]</a></div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-amber-600">$500</div>
+                        <div class="text-xs text-gray-600">Mensal por jornalista (contribuição da SIP) <a href="#ref-159" class="citation-link">[159]</a></div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-amber-600">7</div>
+                        <div class="text-xs text-gray-600">Países-alvo (Nicarágua, Venezuela, Cuba, etc.) <a href="#ref-159" class="citation-link">[159]</a></div>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-gray-700">
+                    A <strong>seletividade geográfica e política da cobertura da RELPEX</strong> tem gerado atenção crítica. Casos documentados enfatizam jornalistas da <strong>Nicarágua, Venezuela, Cuba, Guatemala, Equador, México e Colômbia</strong> — países onde o <strong>governo dos EUA expressou preocupação política substancial</strong>. A <strong>ausência de atenção comparável a jornalistas de regimes aliados aos EUA</strong> exemplifica padrões de defesa seletiva.
+                </p>
+            </div>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Engajamento com o Departamento de Estado (Fevereiro de 2024)</h3>
+            <p class="mb-4">
+                Em <strong>9 de fevereiro de 2024, a SIP recebeu quatro funcionários do Departamento de Estado dos Estados Unidos em sua sede</strong> — indicando <strong>relações institucionais sustentadas em nível operacional</strong> <a href="#ref-265" class="citation-link">[265]</a>. A <strong>caracterização oficial da SIP pelo Departamento de Estado</strong> enfatiza seu <strong>status de organização sem fins lucrativos e missão "dedicada a defender a liberdade de expressão e de imprensa nas Américas"</strong> <a href="#ref-264" class="citation-link">[264]</a>.
+            </p>
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-lg border border-blue-200">
+                <h4 class="font-semibold text-blue-800 mb-3">Reconhecimento Oficial do Governo dos EUA</h4>
+                <p class="text-sm text-blue-700 mb-3">
+                    A quantificação do Departamento sobre a filiação da SIP — <strong>"mais de 1.300 representando jornais e revistas do Alasca à Patagônia, com uma circulação combinada de 43.353.762"</strong> — fornece <strong>reconhecimento oficial do governo dos EUA da escala institucional da SIP</strong> <a href="#ref-264" class="citation-link">[264]</a>.
+                </p>
+                <p class="text-xs text-blue-600 italic">
+                    Esta formulação, embora precisa à autodescrição da SIP, <strong>omite notavelmente qualquer referência a relações históricas com agências de inteligência ou conexões de financiamento em curso</strong>.
+                </p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Defesa da Imprensa -->
+        <section id="defesa-imprensa" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Defesa da Liberdade de Imprensa: Metodologias e Vieses</h2>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Índice Chapultepec 2021: Avaliação Seletiva</h3>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-6">
+                <h4 class="font-semibold mb-4">Classificações de Liberdade de Imprensa: Padrão Ideológico</h4>
+                <div class="space-y-3">
+                    <div class="flex flex-wrap items-center justify-between p-3 bg-red-50 rounded">
+                        <span class="font-medium">Países Pior Classificados</span>
+                        <span class="text-sm text-red-700">Nicarágua, Venezuela, Cuba <a href="#ref-2" class="citation-link">[2]</a></span>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between p-3 bg-green-50 rounded">
+                        <span class="font-medium">Países com "Liberdade Plena"</span>
+                        <span class="text-sm text-green-700">Uruguai, Chile <a href="#ref-2" class="citation-link">[2]</a></span>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between p-3 bg-yellow-50 rounded">
+                        <span class="font-medium">Maior Queda na Pontuação</span>
+                        <span class="text-sm text-yellow-700">Argentina <a href="#ref-74" class="citation-link">[74]</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-semibold mb-4">Seleções de Estudo de Caso (2021)</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-2 flex-shrink-0"></i><span class="text-sm"><strong>El Salvador:</strong> Ataques "agressivos e difamatórios" do governo Bukele a jornalistas <a href="#ref-74" class="citation-link">[74]</a></span></li>
+                        <li class="flex items-start"><i class="fas fa-gavel text-red-500 mt-1 mr-2 flex-shrink-0"></i><span class="text-sm"><strong>Guatemala:</strong> Suprema Corte protegendo a Procuradora-Geral Consuelo Porras (designada para a Lista Engel dos EUA) <a href="#ref-74" class="citation-link">[74]</a></span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Duplos Padrões Históricos</h4>
+                    <div class="text-sm space-y-2">
+                        <div class="p-2 bg-red-50 rounded"><strong>Cuba, Venezuela, Nicarágua:</strong> Crítica intensiva sustentada</div>
+                        <div class="p-2 bg-gray-50 rounded"><strong>Chile (Pinochet), Argentina (1976-1983), Brasil (1964-1985):</strong> Resposta moderada apesar de violações severas</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-highlight">
+                <h4 class="font-semibold mb-3">O Padrão de Viés Sistemático</h4>
+                <p class="mb-3">
+                    <strong>A análise crítica da defesa da SIP identificou consistentemente um foco organizacional desproporcional em violações da liberdade de imprensa por governos de esquerda</strong> em comparação com <strong>restrições comparáveis ou mais severas por regimes conservadores ou alinhados aos EUA</strong> <a href="#ref-141" class="citation-link">[141]</a>.
+                </p>
+                <p class="text-sm text-gray-700">
+                    Este <strong>padrão comparativo não pode ser explicado pela gravidade diferencial das violações da liberdade de imprensa</strong>, pois <strong>os desaparecimentos sistemáticos e tortura de jornalistas pelas ditaduras da Guerra Fria excederam substancialmente qualquer coisa documentada na Cuba, Venezuela ou Nicarágua contemporâneas</strong>.
+                </p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Lobby e Engajamento -->
+        <section id="lobby-governo" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Lobby e Engajamento Direto com o Governo</h2>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Contatos com Administrações Presidenciais</h3>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-6">
+                <div class="space-y-4">
+                    <div class="timeline-item">
+                        <div class="font-semibold">Eisenhower (1950s)</div>
+                        <div class="text-sm text-gray-600">Acordo de financiamento da CIA; oferta de voluntariado de Copley - Coordenação operacional encoberta <a href="#ref-238" class="citation-link">[238]</a> <a href="#ref-289" class="citation-link">[289]</a></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="font-semibold">Nixon (1969)</div>
+                        <div class="text-sm text-gray-600">Discurso via satélite ao vivo para reunião do 25º aniversário - Primeiras observações presidenciais transmitidas ao vivo para todas as nações hemisféricas <a href="#ref-221" class="citation-link">[221]</a> <a href="#ref-229" class="citation-link">[229]</a></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="font-semibold">Clinton (1994)</div>
+                        <div class="text-sm text-gray-600">Endosso da Declaração de Chapultepec - Legitimação de alto nível do framework organizacional <a href="#ref-198" class="citation-link">[198]</a></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="font-semibold">Obama (2014)</div>
+                        <div class="text-sm text-gray-600">Contexto de normalização da política para Cuba - Demandas da SIP por liberdade de imprensa em diálogos bilaterais <a href="#ref-247" class="citation-link">[247]</a> <a href="#ref-248" class="citation-link">[248]</a></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="font-semibold">Biden (2021)</div>
+                        <div class="text-sm text-gray-600">Coordenação da Cúpula pela Democracia - Carta da SIP instando a priorização da liberdade de imprensa <a href="#ref-198" class="citation-link">[198]</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Tensões Contemporâneas (2024)</h3>
+            <div class="bg-gradient-to-r from-orange-50 to-red-50 p-5 rounded-lg border border-orange-200 mb-6">
+                <h4 class="font-semibold text-orange-800 mb-3">Crítica Direta Sem Precedentes à Política de Imprensa dos EUA</h4>
+                <p class="text-sm text-orange-700 mb-3">
+                    A <strong>Assembleia Geral da SIP de 2024 em Punta Cana</strong> apresentou <strong>críticas diretas sem precedentes à política de imprensa do governo dos EUA</strong>, com o Presidente <strong>José Roberto Dutriz</strong> alertando para uma <strong>"crescente deterioração no clima em relação à imprensa" nos Estados Unidos</strong> e seu potencial <strong>"efeito cascata" em todo o hemisfério</strong> <a href="#ref-114" class="citation-link">[114]</a>.
+                </p>
+                <p class="text-xs text-orange-600 italic">
+                    Este reposicionamento, embora potencialmente aumente a credibilidade organizacional através de uma aparente independência, também <strong>criou tensões com as relações com o governo dos EUA</strong> que historicamente sustentaram as operações organizacionais.
+                </p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Perspectivas Críticas -->
+        <section id="perspectivas-criticas" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Perspectivas Críticas e Alternativas</h2>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Academia Crítica Latino-Americana</h3>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="font-semibold mb-4">Estruturas da Teoria da Dependência</h4>
+                    <p class="text-sm mb-4">
+                        A <strong>academia crítica latino-americana sobre as relações SIP-governo dos EUA</strong> foi <strong>substancialmente moldada pela teoria da dependência e estruturas analíticas de imperialismo midiático</strong> desenvolvidas desde os <strong>anos 1960 até 1980</strong>. Textos fundacionais — incluindo trabalhos de <strong>Armand Mattelart, Ariel Dorfman e Herbert Schiller</strong> — estabeleceram <strong>vocabulário conceitual e métodos empíricos para analisar o papel da SIP</strong> <a href="#ref-237" class="citation-link">[237]</a>.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Análise da Mídia Estatal Cubana</h4>
+                    <div class="bg-red-50 p-4 rounded border border-red-200">
+                        <p class="text-sm text-red-700 mb-2">
+                            A <strong>análise do Granma de abril de 2014</strong> caracterizou a SIP como <strong>"o sequestro mais longo da história"</strong> e documentou a <strong>reestruturação de 1950 como uma "manobra combinada do Departamento de Estado e da Agência Central de Inteligência (CIA)"</strong> <a href="#ref-102" class="citation-link">[102]</a>.
+                        </p>
+                        <p class="text-xs text-red-600 italic">
+                            Estas <strong>perspectivas críticas, embora obviamente moldadas pelo antagonismo político</strong>, <strong>incorporam alegações substantivas sobre a história organizacional que merecem exame crítico</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Reportagens Investigativas</h3>
+
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg border border-gray-200 p-5">
+                    <h4 class="font-semibold mb-3">Documentação de Fred Landis / SourceWatch</h4>
+                    <p class="text-sm mb-3">
+                        A <strong>pesquisa investigativa de Fred Landis sobre a SIP</strong>, desenvolvida através de <strong>múltiplas publicações e extensivamente documentada na plataforma SourceWatch</strong>, representa <strong>a investigação crítica mais abrangente das relações da organização com o governo dos EUA</strong> <a href="#ref-161" class="citation-link">[161]</a>.
+                    </p>
+                    <div class="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400">
+                        <p class="text-xs text-yellow-800">
+                            Landis documenta: <strong>Origens na CIA e envolvimento sustentado de agências de inteligência</strong>; <strong>transição para a NED com continuidade de pessoal</strong>; e <strong>função contínua como "grupo de lobby para os proprietários de uma indústria comercial"</strong> utilizando <strong>discurso de "liberdade de imprensa" para o avanço dos interesses dos proprietários</strong> <a href="#ref-161" class="citation-link">[161]</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg border border-gray-200 p-5">
+                    <h4 class="font-semibold mb-3">Cobertura da Mídia Alternativa</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+                        <div>
+                            <div class="font-medium text-red-700">Rebelión</div>
+                            <div class="text-xs text-gray-600">"Los amos de la Sociedad Interamericana de Prensa" <a href="#ref-39" class="citation-link">[39]</a></div>
+                        </div>
+                        <div>
+                            <div class="font-medium text-red-700">Granma</div>
+                            <div class="text-xs text-gray-600">"La perversa historia de la SIP" (2014) <a href="#ref-102" class="citation-link">[102]</a></div>
+                        </div>
+                        <div>
+                            <div class="font-medium text-red-700">El Otro País</div>
+                            <div class="text-xs text-gray-600">"LA SIP, TENTÁCULO DE LA CIA" (2014) <a href="#ref-101" class="citation-link">[101]</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Fontes de Arquivo -->
+        <section id="fontes-arquivo" class="mb-12">
+            <h2 class="serif-display text-3xl font-bold text-gray-900 mb-6">Coleções de Fontes Primárias e Metodologias de Pesquisa</h2>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Coleções Documentais Essenciais</h3>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-lg border border-gray-200 p-5">
+                    <h4 class="font-semibold mb-4">Documentos Desclassificados do Governo dos EUA</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start"><i class="fas fa-star text-amber-500 mt-1 mr-2 flex-shrink-0"></i><span><strong>Relatório da Comissão da Igreja (1975)</strong> - Fonte única mais importante; divulgação explícita de financiamento da SIP <a href="#ref-289" class="citation-link">[289]</a></span></li>
+                        <li class="flex items-start"><i class="fas fa-file-alt text-blue-500 mt-1 mr-2 flex-shrink-0"></i><span>Registros da CIA e Liberações FOIA - Parcialmente classificados; litígio em andamento</span></li>
+                        <li class="flex items-start"><i class="fas fa-diplomat text-green-500 mt-1 mr-2 flex-shrink-0"></i><span>Coleções de Cabos do Departamento de Estado - Registros de reuniões (fevereiro de 2024) <a href="#ref-265" class="citation-link">[265]</a></span></li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg border border-gray-200 p-5">
+                    <h4 class="font-semibold mb-4">Arquivos Institucionais da SIP</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start"><i class="fas fa-calendar text-purple-500 mt-1 mr-2 flex-shrink-0"></i><span>Anais de Conferências (1942-presente) - Encontros formativos críticos <a href="#ref-234" class="citation-link">[234]</a></span></li>
+                        <li class="flex items-start"><i class="fas fa-file-contract text-indigo-500 mt-1 mr-2 flex-shrink-0"></i><span>Padrões de 2024 para Relações Governamentais - Framework operacional atual <a href="#ref-286" class="citation-link">[286]</a></span></li>
+                        <li class="flex items-start"><i class="fas fa-chart-line text-teal-500 mt-1 mr-2 flex-shrink-0"></i><span>Arquivos do Formulário 990 do IRS - Transparência financeira (2015-2021) <a href="#ref-278" class="citation-link">[278]</a> <a href="#ref-279" class="citation-link">[279]</a> <a href="#ref-280" class="citation-link">[280]</a></span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="serif-display text-2xl font-semibold mb-4">Prioridade de Pesquisa: Verificação e Extensão</h3>
+
+            <div class="insight-highlight">
+                <h4 class="font-semibold mb-3">Direções Futuras de Pesquisa</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-medium mb-2">Verificação Documental</h5>
+                        <ul class="text-sm space-y-1">
+                            <li>• Litígio FOIA sustentado por registros da CIA</li>
+                            <li>• Exame de acervos de bibliotecas presidenciais</li>
+                            <li>• Desclassificação dos papéis de James Copley</li>
+                            <li>• Análise abrangente do banco de dados de subsídios da NED</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-medium mb-2">Integração Crítica</h5>
+                        <ul class="text-sm space-y-1">
+                            <li>• Incorporação de fontes em língua espanhola</li>
+                            <li>• Documentação de perspectivas excluídas</li>
+                            <li>• Estudos comparativos de organizações regionais</li>
+                            <li>• Abordagens de mineração de texto em humanidades digitais</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusão -->
+        <section class="mb-12">
+            <div class="bg-gradient-to-r from-amber-50 via-orange-50 to-red-50 p-5 rounded-lg border border-amber-200">
+                <h2 class="serif-display text-2xl font-bold text-gray-900 mb-4">Conclusão: Dependência Institucional e Defesa da Liberdade de Imprensa</h2>
+                <p class="text-base leading-relaxed mb-4">
+                    O registro documental estabelece um <strong>padrão claro de dependência estrutural</strong> entre a Sociedade Interamericana de Imprensa e agências do governo dos EUA abrangendo <strong>mais de oito décadas</strong>. Do <strong>financiamento direto da CIA e coordenação operacional durante a Guerra Fria</strong> ao <strong>apoio contemporâneo da NED e engajamento com o Departamento de Estado</strong>, essas relações moldaram fundamentalmente as prioridades institucionais e os resultados de defesa da SIP.
+                </p>
+                <p class="text-sm leading-relaxed mb-4">
+                    O <strong>viés sistemático no monitoramento da liberdade de imprensa</strong> — <strong>crítica desproporcional a governos de esquerda</strong> em comparação com <strong>violações comparáveis ou mais severas por regimes de direita</strong> — não pode ser entendido separadamente desta <strong>dependência institucional</strong>. A <strong>exclusão de vozes da mídia progressista</strong> e o <strong>alinhamento com os objetivos da política externa dos EUA</strong> representam não características acidentais, mas <strong>resultados estruturais da influência governamental sustentada</strong>.
+                </p>
+                <p class="text-xs text-gray-700 italic">
+                    Esta bibliografia fornece a <strong>base documental</strong> para entender como a <strong>defesa da liberdade de imprensa pode ser sistematicamente moldada</strong> por dependências institucionais, com implicações que se estendem muito além do caso específico da SIP para <strong>questões mais amplas sobre a relação entre organizações de mídia e poder governamental</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Seção de Referências -->
+        <section class="mb-12">
+            <h2 class="serif-display text-2xl font-bold text-gray-900 mb-6">Referências e Documentação de Fontes</h2>
+            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                <div class="text-xs space-y-2">
+                    <div id="ref-67">[67] Thomas M. Leonard, "Inter-American Press Association (IAPA)," em <em>Encyclopedia of U.S.-Latin American Relations</em> (CQ Press/SAGE, 2013).</div>
+                    <div id="ref-2">[2] "IAPA warns press freedom in a state of emergency," <em>Legislative Directory</em> (2021).</div>
+                    <div id="ref-3">[3] Carl Bernstein, "The CIA and the Media," <em>Rolling Stone</em> (outubro 1977).</div>
+                    <div id="ref-39">[39] Juan Gargurevich, "De la Unión Panamericana a la SIP," <em>Canalé</em> (fonte acadêmica peruana).</div>
+                    <div id="ref-74">[74] "IAPA warns press freedom in a state of emergency," <em>Legislative Directory</em> (2021).</div>
+                    <div id="ref-101">[101] "LA SIP, TENTÁCULO DE LA CIA EN LA PRENSA COMERCIAL," <em>El Otro País</em> (2014).</div>
+                    <div id="ref-102">[102] "La perversa historia de la SIP," <em>Granma</em> (abril 2014).</div>
+                    <div id="ref-114">[114] "SIP advierte deterioro de la libertad de prensa en Estados Unidos," <em>El Día</em> (2024).</div>
+                    <div id="ref-159">[159] "Exiled Latin American journalists have new support network," <em>LatAm Journalism Review</em> (2024).</div>
+                    <div id="ref-161">[161] Fred Landis, "Inter American Press Association," <em>SourceWatch</em> documentação.</div>
+                    <div id="ref-163">[163] "The IAPA announces the launch of network to support journalism in exile," <em>SIP IAPA</em> (2024).</div>
+                    <div id="ref-164">[164] Edward S. Herman and Noam Chomsky, <em>Manufacturing Consent: The Political Economy of the Mass Media</em> (1988).</div>
+                    <div id="ref-167">[167] "La SIP lanza iniciativa red de apoyo al periodismo en el exilio," <em>Martí Noticias</em> (2024).</div>
+                    <div id="ref-185">[185] "Latin American journalists seeking asylum in the US left with no clear path," <em>LatAm Journalism Review</em> (2025).</div>
+                    <div id="ref-198">[198] "SIP e IDEA Internacional piden a Joe Biden incluir la libertad de prensa," <em>IDEA Internacional</em> (2021).</div>
+                    <div id="ref-199">[199] "Asamblea de la SIP analiza desafíos y libertad de prensa en América," <em>El País</em> (Colômbia).</div>
+                    <div id="ref-200">[200] "Informe fue más extenso presentado en reunión SIP," <em>El Caribe</em> (2024).</div>
+                    <div id="ref-219">[219] "Latin America Journalism Project (LAJP)" documentação.</div>
+                    <div id="ref-221">[221] Richard Nixon, "Remarks at the Annual Meeting of the Inter-American Press Association" (1969).</div>
+                    <div id="ref-223">[223] "International mission of the IAPA and CPJ visits El Salvador," <em>SIP IAPA</em> (2018).</div>
+                    <div id="ref-225">[225] CIDH, <em>Annual Report 2001: Freedom of Expression</em>.</div>
+                    <div id="ref-228">[228] Registros da Divisão de Imprensa e Publicações do OIAA (operações em tempo de guerra).</div>
+                    <div id="ref-229">[229] "Foreign Relations of the United States, 1969-1976, Volume E-10."</div>
+                    <div id="ref-230">[230] Registros do governo dos EUA sobre o Escritório do Coordenador de Assuntos Interamericanos.</div>
+                    <div id="ref-234">[234] Documentação acadêmica peruana da reestruturação de 1950.</div>
+                    <div id="ref-237">[237] Documentação das conexões do Copley News Service com a CIA.</div>
+                    <div id="ref-238">[238] Joe Trento and Dave Roman, "The Spies Who Came In From the Newsroom," <em>Penthouse</em> (1977).</div>
+                    <div id="ref-240">[240] Documentação da <em>Science for the People</em> sobre El Mercurio.</div>
+                    <div id="ref-245">[245] "IAPA assembly concludes with warning of growing hostility," <em>LatAm Journalism Review</em> (2024).</div>
+                    <div id="ref-246">[246] Departamento de Estado dos EUA, registros de filiação à UNESCO.</div>
+                    <div id="ref-247">[247] "La SIP reclama que la libertad de expresión sea parte esencial diálogo Cuba y EEUU," <em>Diario Las Américas</em> (2014).</div>
+                    <div id="ref-248">[248] "SIP pide incluir la libertad de expresión en diálogo entre EEUU y Cuba," <em>Acento</em> (2014).</div>
+                    <div id="ref-249">[249] "La SIP denuncia crecientes amenazas a prensa en EEUU bajo Trump," <em>La Conexión USA</em> (2017).</div>
+                    <div id="ref-251">[251] National Archives, Records Group 229 (OIAA).</div>
+                    <div id="ref-256">[256] "IAPA war on Venezuela," <em>Venezuelanalysis</em> (2002).</div>
+                    <div id="ref-259">[259] CIDH, <em>Report on Journalist Exile</em> (2025).</div>
+                    <div id="ref-264">[264] Departamento de Estado dos EUA, documentação de caracterização da SIP.</div>
+                    <div id="ref-265">[265] "IAPA received officials from the US Department of State," <em>SIP IAPA</em> (2024).</div>
+                    <div id="ref-272">[272] Thomas M. Leonard, "Inter-American Press Association (IAPA)," <em>Encyclopedia of U.S.-Latin American Relations</em>.</div>
+                    <div id="ref-278">[278] ProPublica Nonprofit Explorer, arquivos do Formulário 990 da SIP no IRS.</div>
+                    <div id="ref-279">[279] ProPublica Nonprofit Explorer, documentação financeira da SIP.</div>
+                    <div id="ref-280">[280] ProPublica Nonprofit Explorer, registros organizacionais.</div>
+                    <div id="ref-286">[286] SIP, "Standards for government relations with journalists and the media" (2024).</div>
+                    <div id="ref-289">[289] Comissão Seleto do Senado dos EUA, <em>Covert Action in Chile, 1963-1973</em> (1975, republicado 2024).</div>
+                    <div id="ref-291">[291] Comitê de Inteligência do Senado dos EUA, registros da Comissão da Igreja.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Funcionalidade do menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const closeMenu = document.getElementById('closeMenu');
+
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            menuOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFunc() {
+            mobileMenu.classList.remove('open');
+            menuOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', openMenu);
+        }
+
+        if (closeMenu) {
+            closeMenu.addEventListener('click', closeMenuFunc);
+        }
+
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', closeMenuFunc);
+        }
+
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMenuFunc);
+        });
+
+        // Rolagem suave para links de âncora
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
